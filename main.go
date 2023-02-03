@@ -4,9 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"webapp/src/router"
 )
 
 func main() {
 	fmt.Println("[::] web app running at 3000")
-	log.Fatal(http.ListenAndServe(":3000", nil))
+
+	r := router.Handler()
+	log.Fatal(http.ListenAndServe(":3000", r))
 }
