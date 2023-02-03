@@ -9,13 +9,13 @@ var loginRoutes = []Route{
 	{
 		URI:     "/",
 		Method:  http.MethodGet,
-		Func:    controllers.Login,
+		Func:    controllers.LoginPage,
 		HasAuth: false,
 	},
 	{
 		URI:     "/login",
 		Method:  http.MethodGet,
-		Func:    controllers.Login,
+		Func:    controllers.LoginPage,
 		HasAuth: false,
 	},
 }

@@ -15,6 +15,7 @@ type Route struct {
 
 func BootsrapRoutes(router *mux.Router) *mux.Router {
 	routes := loginRoutes
+	routes = append(routes, usersRoutes...)
 
 	for _, route := range routes {
 		router.HandleFunc(route.URI, route.Func).Methods(route.Method)
