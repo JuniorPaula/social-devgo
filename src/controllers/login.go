@@ -1,7 +1,10 @@
 package controllers
 
-import "net/http"
+import (
+	"net/http"
+	"webapp/src/utils"
+)
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("tela de login"))
+	utils.Render(w, "login.html", nil)
 }
