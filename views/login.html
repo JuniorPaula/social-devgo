@@ -5,8 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 <body>
-    <h2>Login</h2>
+    <div class="container-login">
+        <div>
+            <form class="login-form" id="login-form">
+                <span>Seja bem vindo ao DevGo!</span>
+                <div>
+                    <input type="text" name="email" id="email" placeholder="Digite seu email" required>
+                </div>
+                <div>
+                    <input type="password" name="password" id="password" placeholder="Digite sua senha" readonly>
+                </div>
+                <button type="submit" class="btn-submit">Login</button>
+                <a href="#">Clique aqui para criar sua conta!</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
