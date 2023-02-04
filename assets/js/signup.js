@@ -1,8 +1,7 @@
 const formSignup = document.querySelector("#signup-form")
-
 formSignup.addEventListener("submit", createUser)
 
-function createUser(e) {
+async function createUser(e) {
     e.preventDefault()
     
     const name = document.querySelector("#name").value
@@ -16,16 +15,16 @@ function createUser(e) {
         return
     }
 
-    fetch("/users", {
-        method: "POST",
-        body: {
-            name,
-            email,
-            nickname,
-            password
-        }
-    }).then(response => {
-        console.log(response)
-        
-    }).catch(e => console.log(e))
+    const data = {
+        name,
+        email,
+        nickname,
+        password
+    }
+
+    fetch('/users', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {"Content-type": "application/json"}
+    })
 }
