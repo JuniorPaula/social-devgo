@@ -11,7 +11,7 @@
 <body>
     <div class="container-login">
         <div>
-            <form class="login-form" id="signup-form">
+            <form method="post" class="login-form" id="signup-form">
                 <span>Crie seu cadastro agora mesmo no DevGo!</span>
                 <div>
                     <input type="text" name="name" id="name" placeholder="Digite seu nome" required>
@@ -23,10 +23,10 @@
                     <input type="text" name="nickname" id="nickname" placeholder="Digite seu apelido" required>
                 </div>
                 <div>
-                    <input type="password" name="password" id="password" placeholder="Digite sua senha" readonly>
+                    <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
                 </div>
                 <div>
-                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirme sua senha" readonly>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirme sua senha" required>
                 </div>
                 <button type="submit" class="btn-submit">Cadastrar</button>
                 <a href="/">Clique aqui para fazer o login!</a>
@@ -34,5 +34,6 @@
         </div>
     </div>
 
+    <script src="/assets/js/signup.js"></script>
 </body>
 </html>
