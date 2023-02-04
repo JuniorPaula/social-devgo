@@ -22,9 +22,19 @@ async function createUser(e) {
         password
     }
 
-    fetch('/users', {
+    const response = await fetch('/users', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {"Content-type": "application/json"}
     })
+    
+    if (response.status !== 201) {
+        alert('Ops!! Erro ao criar a conta!')
+        return
+    }
+
+    if (response.status === 201) {
+        alert('Conta criada com sucesso :)')
+        return
+    }
 }
