@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"bytes"
-	"fmt"
+	"encoding/json"
 	"io"
 	"net/http"
+	"webapp/src/models"
 	"webapp/src/responses"
 )
 
@@ -20,6 +21,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
 		return
 	}
-	token, _ := io.ReadAll(resp.Body)
-	fmt.Println("Resposta ", resp.StatusCode, string(token))
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		responses.VerifyStatusCodeErrors(w, resp)
+		return
+	}
+
+	var data models.AuthDTO
+	if err = json.NewDecoder(resp.Body).Decode(&data); err != nil {
+		responses.ResponseJON(w, http.StatusUnprocessableEntity, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	responses.ResponseJON(w, http.StatusOK, nil)
 }
