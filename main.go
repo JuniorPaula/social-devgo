@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"webapp/src/config"
 	"webapp/src/router"
 	"webapp/src/utils"
 )
 
 func main() {
+	config.LoadEnv()
 	utils.LoadTemplates()
 	r := router.Handler()
 
-	fmt.Println("[::] web app running at 3000")
-	log.Fatal(http.ListenAndServe(":3000", r))
+	fmt.Printf("[::] web app running at port %d\n", config.Port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r))
 }
