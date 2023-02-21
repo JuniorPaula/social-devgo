@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"webapp/src/config"
+	"webapp/src/cookies"
 	"webapp/src/models"
 	"webapp/src/responses"
 )
@@ -37,5 +38,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err = cookies.Save(w, data.UserID, data.Token); err != nil {
+		responses.ResponseJON(w, http.StatusUnprocessableEntity, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
 	responses.ResponseJON(w, http.StatusOK, nil)
 }
