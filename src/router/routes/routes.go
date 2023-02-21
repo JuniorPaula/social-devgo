@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"webapp/src/middlewares"
 
 	"github.com/gorilla/mux"
 )
@@ -19,7 +20,14 @@ func BootsrapRoutes(router *mux.Router) *mux.Router {
 	routes = append(routes, homeRoute)
 
 	for _, route := range routes {
-		router.HandleFunc(route.URI, route.Func).Methods(route.Method)
+
+		if route.HasAuth {
+			router.HandleFunc(route.URI, middlewares.Logger(middlewares.Authenticate(route.Func))).Methods(route.Method)
+
+		} else {
+			router.HandleFunc(route.URI, middlewares.Logger(route.Func)).Methods(route.Method)
+		}
+
 	}
 
 	fileServer := http.FileServer(http.Dir("./assets/"))
