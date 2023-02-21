@@ -1,19 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ template "header" }}
+
     <title>Home</title>
 </head>
 <body>
-    <h2>Home</h2>
+    {{ template "navbar" }}
 
-    {{ range . }}
-        <h4>Título: {{ .Title }}</h4>
-        <h5>Conteúdo: {{ .Content }}</h5>
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                <!-- form -->
+                <h4>Novo post</h4>
+                <fieldset>
+                    <form id="new-post">
+                        <div class="form-group">
+                            <label for="title">Título</label>
+                            <input type="text" class="form-control" id="title" name="title" required="required" placeholder="Diga o título da sua publicação">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Conteúdo</label>
+                            <textarea name="content" id="content" class="form-control" required="required" placeholder="Diga o conteúdo da sua publicação"></textarea>
+                        </div>
 
-        <hr />
-    {{ end }}
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </form>
+                </fieldset>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                <!-- posts -->
+                {{ range . }}
+                    <div class="jumbotron">
+                        <h1 class="display-4">{{ .Title }}</h1>
+                        <p class="lead">{{ .Content }}</p>
+                        <hr class="my-4">
+                        <p class="text-multed">
+                            <a href="#">Author: {{ .AuthorNickname }}</a> - 
+                            Criado em: {{ .CreatedAt }}
+                        </p>
+                        <p>botões</p>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+
+    {{ template "footer" }}
 </body>
 </html>
