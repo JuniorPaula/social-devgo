@@ -12,3 +12,7 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 func SignupPage(w http.ResponseWriter, r *http.Request) {
 	utils.Render(w, "signup.html", nil)
 }
+
+func HomePage(w http.ResponseWriter, r *http.Request) {
+	utils.Render(w, "home.html", nil)
+}
