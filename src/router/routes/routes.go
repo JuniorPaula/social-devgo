@@ -18,6 +18,7 @@ func BootsrapRoutes(router *mux.Router) *mux.Router {
 	routes := loginRoutes
 	routes = append(routes, usersRoutes...)
 	routes = append(routes, homeRoute)
+	routes = append(routes, postRoutes...)
 
 	for _, route := range routes {
 
