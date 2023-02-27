@@ -30,7 +30,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
                 <!-- posts -->
-                {{ range . }}
+                {{ range .Posts }}
                     <div class="jumbotron">
                         <h1 class="display-4">{{ .Title }}</h1>
                         <p class="lead">{{ .Content }}</p>
@@ -39,7 +39,12 @@
                             <a href="#">Author: {{ .AuthorNickname }}</a> - 
                             Criado em: {{ .CreatedAt }}
                         </p>
-                        <p>botões</p>
+
+                        {{ if (eq .AuthorID $.UserID) }}
+                         <p>botões, curtir, editar e excluir</p>
+                        {{ else }}
+                        <p>botão curtir</p>
+                        {{ end }}
                     </div>
                 {{ end }}
             </div>
