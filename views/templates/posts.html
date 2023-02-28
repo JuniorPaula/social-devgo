@@ -1,0 +1,46 @@
+{{ define "likes" }}
+    <i class="fas fa-heart text-danger" title="Likes"></i>
+    <span>{{ .Likes }}</span>
+{{ end }}
+
+{{ define "edit" }}
+    <a href="/edit">
+        <i class="fas fa-edit text-primary ml-2" title="Editar"></i>
+    </a>
+{{ end }}
+
+{{ define "delete" }}
+    <a href="/delete">
+        <i class="fas fa-trash text-danger ml-2" title="Deletar"></i>
+    </a>
+{{ end }}
+
+{{ define "post-header" }}
+    <h1 class="display-4">{{ .Title }}</h1>
+    <p class="lead">{{ .Content }}</p>
+    <p style="font-size: 12px; color: rgb(43, 43, 43);">
+        <a href="#">Author: {{ .AuthorNickname }}</a> - 
+        <span>Criado em: {{ .CreatedAt.Format "02/01/2006" }}</span>
+    </p>
+    <hr class="my-4">
+{{ end }}
+
+{{ define "post-with-permission" }}
+    <div class="jumbotron" data-post-id="{{ .ID }}">
+        {{ template "post-header" . }}
+        <p>
+            {{ template "likes" . }}
+            {{ template "edit" }}
+            {{ template "delete" }}
+        </p>
+    </div>
+{{ end }}
+
+{{ define "post-without-permission" }}
+    <div class="jumbotron" data-post-id="{{ .ID }}">
+        {{ template "post-header" . }}
+        <p>
+            {{ template "likes" . }}
+        </p>
+    </div>
+{{ end }}
