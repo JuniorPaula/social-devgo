@@ -4,7 +4,7 @@
 {{ end }}
 
 {{ define "edit" }}
-    <a href="/edit">
+    <a href="/posts/{{ .ID }}/edit">
         <i class="fas fa-edit text-primary ml-2" title="Editar"></i>
     </a>
 {{ end }}
@@ -30,8 +30,8 @@
         {{ template "post-header" . }}
         <p>
             {{ template "likes" . }}
-            {{ template "edit" }}
-            {{ template "delete" }}
+            {{ template "edit" . }}
+            {{ template "delete" . }}
         </p>
     </div>
 {{ end }}

@@ -18,4 +18,10 @@ var postRoutes = []Route{
 		Func:    controllers.LikePost,
 		HasAuth: true,
 	},
+	{
+		URI:     "/posts/{postId}/edit",
+		Method:  http.MethodGet,
+		Func:    controllers.EditPostPage,
+		HasAuth: true,
+	},
 }

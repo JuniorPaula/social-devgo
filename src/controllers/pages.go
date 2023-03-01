@@ -11,6 +11,8 @@ import (
 	"webapp/src/requests"
 	"webapp/src/responses"
 	"webapp/src/utils"
+
+	"github.com/gorilla/mux"
 )
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
@@ -51,4 +53,33 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		Posts:  posts,
 		UserID: userID,
 	})
+}
+
+func EditPostPage(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	postID, err := strconv.ParseUint(params["postId"], 10, 64)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	url := fmt.Sprintf("%s/posts/%d", config.APIURL, postID)
+	resp, err := requests.MakeRequestWithAuthentication(r, http.MethodGet, url, nil)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		responses.VerifyStatusCodeErrors(w, resp)
+	}
+
+	var post models.PostDTO
+	if err = json.NewDecoder(resp.Body).Decode(&post); err != nil {
+		responses.ResponseJON(w, http.StatusUnprocessableEntity, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	utils.Render(w, "edit-post.html", post)
 }
