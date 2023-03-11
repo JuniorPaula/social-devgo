@@ -1,5 +1,6 @@
 const formPost = document.querySelector("#new-post")
 const likePostBtn = document.querySelectorAll(".like-post")
+const btnDelete = document.querySelectorAll(".delete-post")
 
 formPost.addEventListener("submit", createPost)
 
@@ -37,6 +38,10 @@ likePostBtn.forEach(btn => {
     btn.addEventListener("click", likePost)
 })
 
+btnDelete.forEach(btn => {
+    btn.addEventListener("click", deletePost)
+})
+
 function likePost(e, btn) {
     e.preventDefault()
     const postId = e.target.parentElement.parentElement.dataset.postId
@@ -55,6 +60,27 @@ function likePost(e, btn) {
     })
     .catch(e => {
         alert("Erro ao curtir publicação :/")
+        console.log("[ERROR::] ", e)
+    })
+}
+
+function deletePost(e) {
+    e.preventDefault()
+    const postId = e.target.parentElement.parentElement.dataset.postId
+    
+    fetch(`/posts/${postId}`, {
+        method: 'DELETE',
+    })
+    .then(data => {
+        if (data.status !== 204) {
+            alert("Erro ao deletar publicação :/")
+            return
+        }
+        alert("Publicação deletada com sucesso!")
+        window.location.href = "/home"
+    })
+    .catch(e => {
+        alert("Erro ao deletar publicação :/")
         console.log("[ERROR::] ", e)
     })
 }

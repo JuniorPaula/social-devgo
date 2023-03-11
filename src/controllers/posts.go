@@ -74,7 +74,6 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(string(body))
 	url := fmt.Sprintf("%s/posts/%d", config.APIURL, postID)
 	resp, err := requests.MakeRequestWithAuthentication(r, http.MethodPut, url, bytes.NewBuffer(body))
 	if err != nil {
@@ -90,4 +89,28 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 
 	responses.ResponseJON(w, resp.StatusCode, nil)
 
+}
+
+func DeletePost(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	postID, err := strconv.ParseUint(params["postId"], 10, 64)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusBadRequest, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	url := fmt.Sprintf("%s/posts/%d", config.APIURL, postID)
+	resp, err := requests.MakeRequestWithAuthentication(r, http.MethodDelete, url, nil)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+	resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		responses.ResponseJON(w, resp.StatusCode, nil)
+		return
+	}
+
+	responses.ResponseJON(w, resp.StatusCode, nil)
 }
