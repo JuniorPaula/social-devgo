@@ -32,10 +32,12 @@
                     >{{ .Content }}</textarea>
                 </div>
 
-                <button type="button" id="btn-edit-post" data-post-id="{{ .ID }}" class="btn btn-primary">Editar</button>
+                <button id="btn-edit-post" data-post-id="{{ .ID }}" class="btn btn-info">Editar</button>
             </div>
         </div>
     </div>
+    {{ template "footer" }}
+    <script src="/assets/js/edit-post.js"></script>
 
 </body>
 </html>

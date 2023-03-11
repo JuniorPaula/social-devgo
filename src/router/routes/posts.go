@@ -24,4 +24,10 @@ var postRoutes = []Route{
 		Func:    controllers.EditPostPage,
 		HasAuth: true,
 	},
+	{
+		URI:     "/posts/{postId}",
+		Method:  http.MethodPut,
+		Func:    controllers.UpdatePost,
+		HasAuth: true,
+	},
 }
