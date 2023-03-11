@@ -16,6 +16,12 @@ import (
 )
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
+	cookie, _ := cookies.Read(r)
+
+	if cookie["token"] != "" {
+		http.Redirect(w, r, "/home", http.StatusFound)
+		return
+	}
 	utils.Render(w, "login.html", nil)
 }
 
