@@ -13,10 +13,8 @@ function loginHandle(e) {
         body: JSON.stringify(data),
         headers: {"Content-type": "application/json"}
     }).then((data) => {
-        console.log(data)
         window.location.href = "/home"
     }).catch(e => {
-        console.log(e)
         alert('email ou senha inválidos')
     })
 }

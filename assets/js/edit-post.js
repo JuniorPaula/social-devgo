@@ -24,11 +24,13 @@ function editPost(e) {
             return
         }
 
-        alert("Publicação atualizada com sucesso!")
+        Swal.fire('Sucesso', 'Publicação atualizada com sucesso!', 'success')
+            .then(function() {
+                window.location = "/home"
+            })
     })
     .catch(e => {
-        alert("Erro ao atualizar publicação :/")
-        console.log("[ERROR::] ", e)
+        Swal.fire("Ops!!", "Error ao editar a publicação!", "error")
     })
     .finally(() => {
         e.target.disabled = false

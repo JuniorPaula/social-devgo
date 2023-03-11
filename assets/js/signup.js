@@ -1,7 +1,7 @@
 const formSignup = document.querySelector("#signup-form")
 formSignup.addEventListener("submit", createUser)
 
-async function createUser(e) {
+function createUser(e) {
     e.preventDefault()
     
     const name = document.querySelector("#name").value
@@ -11,7 +11,7 @@ async function createUser(e) {
     const confirmPassword = document.querySelector("#confirmPassword").value
 
     if (password !== confirmPassword) {
-        alert('As senhas não conferem!')
+        Swal.fire("Ops!!", "As senhas não conferem!", "error")
         return
     }
 
@@ -22,19 +22,21 @@ async function createUser(e) {
         password
     }
 
-    const response = await fetch('/users', {
+    fetch('/users', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {"Content-type": "application/json"}
     })
-    
-    if (response.status !== 201) {
-        alert('Ops!! Erro ao criar a conta!')
-        return
-    }
+    .then(data => {
+        if (data.status !== 201) {
+            Swal.fire("Ops!!", "Erro ao criar a conta!", "error")
+            alert("Erro ao atualizar publicação :/")
+            return
+        }
 
-    if (response.status === 201) {
-        alert('Conta criada com sucesso :)')
-        return
-    }
+        Swal.fire('Sucesso', 'Conta criada com sucesso!', 'success')
+    })
+    .catch(e => {
+        Swal.fire("Ops!!", "Algo deu errado!", "error")
+    })
 }

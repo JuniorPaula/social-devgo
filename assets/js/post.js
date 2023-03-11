@@ -21,15 +21,14 @@ function createPost(e) {
     })
     .then(data => {
         if (data.status !== 201) {
-            alert("Erro ao criar publicação :/")    
+            Swal.fire("Ops!!", "Erro ao criar publicação :/", "error")    
             return
         }
 
         window.location.href = "/home"
     })
     .catch(e => {
-        alert("Erro ao criar publicação :/")
-        console.log("[ERROR::] ", e)
+        Swal.fire("Ops!!", "Erro ao criar publicação :/", "error")
     })
 
 }
@@ -51,7 +50,7 @@ function likePost(e, btn) {
     })
     .then(data => {
         if (data.status !== 204) {
-            alert("Erro ao curtir publicação :/")    
+            Swal.fire("Ops!!", "Erro ao curtir publicação :/", "error")    
             return
         }
         const counterLikes = e.srcElement.nextElementSibling
@@ -59,28 +58,40 @@ function likePost(e, btn) {
         counterLikes.innerText = qtdLikes + 1
     })
     .catch(e => {
-        alert("Erro ao curtir publicação :/")
-        console.log("[ERROR::] ", e)
+        Swal.fire("Ops!!", "Erro ao curtir publicação :/", "error")
     })
 }
 
 function deletePost(e) {
     e.preventDefault()
     const postId = e.target.parentElement.parentElement.dataset.postId
+
+    Swal.fire({
+        title: "Atenção!!",
+        text: "Deseja realmente excluir essa publicação ?",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        icon: "warning"
+    })
+    .then(function(isConfirm) {
+        if (!isConfirm.value) return
+
+        fetch(`/posts/${postId}`, {
+            method: 'DELETE',
+        })
+        .then(data => {
+            if (data.status !== 204) {
+                Swal.fire("Ops!!", "Erro ao deletar publicação :/", "error")
+                return
+            }
+            Swal.fire("Sucesso!", "Publicação deletar com sucesso", "success")
+                .then(function() {
+                    window.location.href = "/home"
+                })
+        })
+        .catch(e => {
+            Swal.fire("Ops!!", "Erro ao deletar publicação :/", "error")
+        })
+    })
     
-    fetch(`/posts/${postId}`, {
-        method: 'DELETE',
-    })
-    .then(data => {
-        if (data.status !== 204) {
-            alert("Erro ao deletar publicação :/")
-            return
-        }
-        alert("Publicação deletada com sucesso!")
-        window.location.href = "/home"
-    })
-    .catch(e => {
-        alert("Erro ao deletar publicação :/")
-        console.log("[ERROR::] ", e)
-    })
 }
