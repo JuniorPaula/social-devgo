@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"webapp/src/config"
 	"webapp/src/cookies"
 	"webapp/src/models"
@@ -88,4 +89,29 @@ func EditPostPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.Render(w, "edit-post.html", post)
+}
+
+func FindUsersPage(w http.ResponseWriter, r *http.Request) {
+	nameOrNickname := strings.ToLower(r.URL.Query().Get("user"))
+	url := fmt.Sprintf("%s/users?user=%s", config.APIURL, nameOrNickname)
+
+	resp, err := requests.MakeRequestWithAuthentication(r, http.MethodGet, url, nil)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		responses.VerifyStatusCodeErrors(w, resp)
+		return
+	}
+
+	var users []models.UserDTO
+	if err = json.NewDecoder(resp.Body).Decode(&users); err != nil {
+		responses.ResponseJON(w, http.StatusUnprocessableEntity, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	utils.Render(w, "users.html", users)
 }

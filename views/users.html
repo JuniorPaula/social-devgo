@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {{ template "header" }}
+
+    <title>Usuários</title>
+</head>
+<body>
+    {{ template "navbar" }}
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Usuários encontrados</h5>
+                        {{ range . }}
+                            <p class="card-text">
+                                {{ .Name }} <a href="/users/{{ .ID }}"> {{ .Nickname }} </a>
+                            </p>
+                        {{ else }}
+                            <div class="card-title">
+                                Nenhum usuário encontrado!
+                            </div>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ template "footer" }}
+<script src="/assets/js/post.js"></script>
+
+</body>
+</html>

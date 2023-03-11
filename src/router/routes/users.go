@@ -18,4 +18,10 @@ var usersRoutes = []Route{
 		Func:    controllers.CreateUser,
 		HasAuth: false,
 	},
+	{
+		URI:     "/q",
+		Method:  http.MethodGet,
+		Func:    controllers.FindUsersPage,
+		HasAuth: true,
+	},
 }
