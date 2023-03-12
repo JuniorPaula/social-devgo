@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {{ template "header" }}
+
+    <title>DevGo - usuário</title>
+</head>
+<body>
+    {{ template "navbar" }}
+
+    {{ $IsFollowedByUserLogged := false }}
+    {{ range .User.Followers }}
+        {{ if (eq .ID $.UserLoggedID) }}
+            {{ $IsFollowedByUserLogged = true }}
+        {{ end }}
+    {{ end }}
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Perfil do usuário</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ .User.Name }} - {{ .User.Nickname }}
+                        </h6>
+                        <p class="card-text">
+                            <a href="#">
+                                Seguidores: {{ len .User.Followers }}
+                            </a>
+                        </p>
+                        <p class="card-text">
+                            <a href="#">
+                                Seguindo: {{ len .User.Following }}
+                            </a>
+                        </p>
+
+                        <a href="#" class="card-link">
+                            {{ if $IsFollowedByUserLogged }}
+                            
+                                <button id="unfollower" class="btn btn-info btn-sm" data-user-id="{{ .User.ID }}">
+                                    deixar de seguir
+                                </button>
+
+                            {{ else }}
+                            
+                                <button id="follower" class="btn btn-info btn-sm" data-user-id="{{ .User.ID }}">
+                                    seguir
+                                </button>
+
+                            {{ end }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Publicações do usuário {{ .User.Name }} {{ .User.Nickname }}</h5>
+                        <p class="card-text">
+                            {{ range .User.Posts }}
+                                {{ template "post-without-permission" . }}
+                            {{ else }}
+                                <p class="text-muted text-center">
+                                    sem publicações :( 
+                                </p>
+                            {{ end }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ template "footer" }}
+    <script src="/assets/js/post.js"></script>
+
+</body>
+</html>
