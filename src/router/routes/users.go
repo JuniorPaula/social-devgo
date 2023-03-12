@@ -24,4 +24,10 @@ var usersRoutes = []Route{
 		Func:    controllers.FindUsersPage,
 		HasAuth: true,
 	},
+	{
+		URI:     "/users/{userId}",
+		Method:  http.MethodGet,
+		Func:    controllers.UserProfilePage,
+		HasAuth: true,
+	},
 }

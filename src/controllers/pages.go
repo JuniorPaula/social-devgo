@@ -115,3 +115,15 @@ func FindUsersPage(w http.ResponseWriter, r *http.Request) {
 
 	utils.Render(w, "users.html", users)
 }
+
+func UserProfilePage(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	userID, err := strconv.ParseUint(params["userId"], 10, 64)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	user, err := models.FindUser(userID, r)
+	fmt.Println(user, err)
+}
