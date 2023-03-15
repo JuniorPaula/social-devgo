@@ -25,12 +25,12 @@
                             {{ .User.Name }} - {{ .User.Nickname }}
                         </h6>
                         <p class="card-text">
-                            <a href="#">
+                            <a href="#" data-toggle="modal" data-target="#modal-followers">
                                 Seguidores: {{ len .User.Followers }}
                             </a>
                         </p>
                         <p class="card-text">
-                            <a href="#">
+                            <a href="#" data-toggle="modal" data-target="#modal-following">
                                 Seguindo: {{ len .User.Following }}
                             </a>
                         </p>
@@ -74,6 +74,8 @@
         </div>
     </div>
 
+    {{ template "modal-followers" .User }}
+    {{ template "modal-following" .User }}
     {{ template "footer" }}
     <script src="/assets/js/post.js"></script>
     <script src="/assets/js/user.js"></script>
