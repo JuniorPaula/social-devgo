@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {{ template "header" }}
+
+    <title>DevGo - Editar Perfil</title>
+</head>
+<body>
+    {{ template "navbar" }}
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3>Editar dados</h3>
+                <form id="edit-user">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Insira seu nome"
+                            value="{{ .Name }}"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Insira seu email"
+                            value="{{ .Email }}"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="nickname">Apelido</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="nickname" 
+                            name="nickname" 
+                            placeholder="Insira seu apelido"
+                            value="{{ .Nickname }}"
+                            required
+                        >
+                    </div>
+                    <button type="submit" id="btn-edit-user" class="btn btn-sm btn-info">Atualizar dados</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{ template "footer" }}
+    <script src="/assets/js/edit-user.js"></script>
+</body>
+</html>

@@ -5,7 +5,6 @@ btnFollower.addEventListener("click", followerUser)
 btnUnfollower.addEventListener("click", unfollowerUser)
 
 function unfollowerUser(e) {
-    console.log(e)
     e.preventDefault()
     e.target.disabled = true
 
@@ -29,7 +28,6 @@ function unfollowerUser(e) {
 }
 
 function followerUser(e) {
-    console.log(e)
     e.preventDefault()
     e.target.disabled = true
 
