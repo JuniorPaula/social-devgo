@@ -48,4 +48,16 @@ var usersRoutes = []Route{
 		Func:    controllers.UserLoggedProfilePage,
 		HasAuth: true,
 	},
+	{
+		URI:     "/edit-user",
+		Method:  http.MethodGet,
+		Func:    controllers.EditUserPage,
+		HasAuth: true,
+	},
+	{
+		URI:     "/edit-user",
+		Method:  http.MethodPut,
+		Func:    controllers.UpdateUser,
+		HasAuth: true,
+	},
 }

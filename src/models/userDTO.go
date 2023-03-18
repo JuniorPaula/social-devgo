@@ -12,10 +12,10 @@ import (
 
 type UserDTO struct {
 	ID        uint64    `json:"id"`
-	Name      string    `json:"nome"`
+	Name      string    `json:"name"`
 	Email     string    `json:"email"`
 	Nickname  string    `json:"nickname"`
-	CreatedAt time.Time `json:"criado_em"`
+	CreatedAt time.Time `json:"createdAt"`
 	Followers []UserDTO `json:"followers"`
 	Following []UserDTO `json:"following"`
 	Posts     []PostDTO `json:"posts"`

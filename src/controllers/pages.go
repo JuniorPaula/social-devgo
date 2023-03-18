@@ -158,3 +158,19 @@ func UserLoggedProfilePage(w http.ResponseWriter, r *http.Request) {
 
 	utils.Render(w, "profile.html", user)
 }
+
+func EditUserPage(w http.ResponseWriter, r *http.Request) {
+	cookie, _ := cookies.Read(r)
+	userID, _ := strconv.ParseUint(cookie["id"], 10, 64)
+
+	channel := make(chan models.UserDTO)
+	go models.GetUserData(channel, userID, r)
+	user := <-channel
+
+	if user.ID == 0 {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: "error to find user"})
+		return
+	}
+
+	utils.Render(w, "edit-user.html", user)
+}
