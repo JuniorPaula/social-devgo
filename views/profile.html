@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {{ template "header" }}
+
+    <title>DevGo - Perfil</title>
+</head>
+<body>
+    {{ template "navbar" }}
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Meu Perfil</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ .Name }} {{ .Nickname }}
+                        </h6>
+                        <p class="card-text">
+                            <a href="#" data-toggle="modal" data-target="#modal-followers">
+                                Seguidores: {{ len .Followers }}
+                            </a>
+                        </p>
+                        <p class="card-text">
+                            <a href="#" data-toggle="modal" data-target="#modal-following">
+                                Seguindo: {{ len .Following }}
+                            </a>
+                        </p>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="/edit-user" class="card-link">
+                                    <button class="btn btn-sm btn-info">Editar usuário</button>
+                                </a>
+                                <a href="/update-password" class="card-link">
+                                    <button class="btn btn-sm btn-success">Atualizar senha</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Publicações do usuário {{ .Name }} {{ .Nickname }}</h5>
+                        <p class="card-text">
+                            {{ range .Posts }}
+                                {{ template "post-with-permission" . }}
+                            {{ else }}
+                                <p class="text-muted text-center">
+                                    sem publicações :( 
+                                </p>
+                            {{ end }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/post.js"></script>
+    {{ template "modal-followers" . }}
+    {{ template "modal-following" . }}
+    {{ template "footer" }}
+</body>
+</html>

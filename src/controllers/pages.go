@@ -145,3 +145,16 @@ func UserProfilePage(w http.ResponseWriter, r *http.Request) {
 		UserLoggedID: userLoggedID,
 	})
 }
+
+func UserLoggedProfilePage(w http.ResponseWriter, r *http.Request) {
+	cookie, _ := cookies.Read(r)
+	userID, _ := strconv.ParseUint(cookie["id"], 10, 64)
+
+	user, err := models.FindUser(userID, r)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+
+	utils.Render(w, "profile.html", user)
+}
