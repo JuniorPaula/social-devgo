@@ -174,3 +174,7 @@ func EditUserPage(w http.ResponseWriter, r *http.Request) {
 
 	utils.Render(w, "edit-user.html", user)
 }
+
+func UpdatePasswordPage(w http.ResponseWriter, r *http.Request) {
+	utils.Render(w, "update-password.html", nil)
+}

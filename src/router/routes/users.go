@@ -60,4 +60,16 @@ var usersRoutes = []Route{
 		Func:    controllers.UpdateUser,
 		HasAuth: true,
 	},
+	{
+		URI:     "/update-password",
+		Method:  http.MethodGet,
+		Func:    controllers.UpdatePasswordPage,
+		HasAuth: true,
+	},
+	{
+		URI:     "/update-password",
+		Method:  http.MethodPost,
+		Func:    controllers.UpdatePassword,
+		HasAuth: true,
+	},
 }
