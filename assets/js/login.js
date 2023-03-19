@@ -13,8 +13,22 @@ function loginHandle(e) {
         body: JSON.stringify(data),
         headers: {"Content-type": "application/json"}
     }).then((data) => {
+        console.log('data', data)
+        if (data.status !== 200) {
+            Swal.fire("Ops!!", "Usuário ou senha inválidos", "error")
+                .then(function() {
+                    email = ""
+                    password = ""
+                })
+            return
+        }
+
         window.location.href = "/home"
     }).catch(e => {
-        alert('email ou senha inválidos')
+        Swal.fire("Ops!!", "Usuário ou senha inválidos", "error")
+            .then(function() {
+                email = ""
+                password = ""
+            })        
     })
 }
