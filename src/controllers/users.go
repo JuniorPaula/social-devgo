@@ -139,3 +139,23 @@ func UpdatePassword(w http.ResponseWriter, r *http.Request) {
 
 	responses.ResponseJON(w, resp.StatusCode, nil)
 }
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	cookei, _ := cookies.Read(r)
+	userID, _ := strconv.ParseUint(cookei["id"], 10, 64)
+
+	url := fmt.Sprintf("%s/users/%d", config.APIURL, userID)
+	resp, err := requests.MakeRequestWithAuthentication(r, http.MethodDelete, url, nil)
+	if err != nil {
+		responses.ResponseJON(w, http.StatusInternalServerError, responses.ErrorAPI{Error: err.Error()})
+		return
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		responses.VerifyStatusCodeErrors(w, resp)
+		return
+	}
+
+	responses.ResponseJON(w, resp.StatusCode, nil)
+}
