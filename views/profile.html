@@ -60,9 +60,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="mt-4">
+            <a id="delete-user" class="card-link">
+                <button class="btn btn-sm btn-danger">
+                    Excluir conta permanentemente
+                </button>
+            </a>
+        </div>
     </div>
 
     <script src="/assets/js/post.js"></script>
+    <script src="/assets/js/delete-user.js"></script>
     {{ template "modal-followers" . }}
     {{ template "modal-following" . }}
     {{ template "footer" }}
